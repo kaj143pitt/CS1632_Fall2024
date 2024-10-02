@@ -1,7 +1,11 @@
 package edu.pitt.cs;
 
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.mockito.*;
+
+import io.cucumber.java.hu.De;
 
 import org.junit.Test;
 
@@ -20,8 +24,11 @@ public class DeathStarTest {
 	 */
 	@Test
 	public void testShootPlanetIntegration() {
-		// TODO: Fill in!
-		fail();
+		DeathStar deathStar = new DeathStar();
+		Planet planet = new Planet(10);
+
+		assertEquals("Wimpy planet was hit by the superlaser!", deathStar.shoot(planet));
+		assertEquals(-90, planet.getHitPoints());
 	}
 
 	/**
@@ -37,7 +44,12 @@ public class DeathStarTest {
 	 */
 	@Test
 	public void testShootPlanetUnit() {
-		// TODO: Fill in!
-		fail();
+		DeathStar deathStar = new DeathStar();
+		Planet planet = Mockito.mock(Planet.class);
+		Mockito.when(planet.getHitPoints()).thenReturn(10);
+		Mockito.when(planet.toString()).thenReturn("Wimpy planet");
+
+		assertEquals("Wimpy planet was hit by the superlaser!", deathStar.shoot(planet));
+		Mockito.verify(planet, Mockito.times(1)).damage(100);
 	}
 }
